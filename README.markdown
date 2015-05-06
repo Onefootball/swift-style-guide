@@ -25,8 +25,8 @@ Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/
   * [Syntactic Sugar](#syntactic-sugar)
 * [Control Flow](#control-flow)
 * [Semicolons](#semicolons)
+* [Access Control](#access-control)
 * [Language](#language)
-* [Smiley Face](#smiley-face)
 * [Credits](#credits)
 
 
