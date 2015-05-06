@@ -523,6 +523,17 @@ let swift = "not a scripting language";
 
 **NOTE**: Swift is very different to JavaScript, where omitting semicolons is [generally considered unsafe](http://stackoverflow.com/questions/444080/do-you-recommend-using-semicolons-after-every-statement-in-javascript)
 
+## Access Control
+
+Always use `private` for properties and methods unless they need to be accessed from other places. In case it is accessed from Objective-C use `dynamic`.
+
+**Example:**
+```swift
+private var timer: NSTimer?
+private (set) var type: EventActionType?
+private dynamic func timerTriggered(sender: NSTimer)
+```
+
 ## Language
 
 Use US English spelling to match Apple's API.
