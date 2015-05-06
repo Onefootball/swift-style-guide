@@ -1,10 +1,8 @@
-# The Official raywenderlich.com Swift Style Guide.
-
-This style guide is different from others you may see, because the focus is centered on readability for print and the web. We created this style guide to keep the code in our books, tutorials, and starter kits nice and consistent — even though we have many different authors working on the books.
+# The Onefootball Swift Style Guide.
 
 Our overarching goals are conciseness, readability, and simplicity.
 
-Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/raywenderlich/objective-c-style-guide) too.
+Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/motain/objective-c-style-guide) too.
 
 ## Table of Contents
 
@@ -120,10 +118,7 @@ let myClass = MyModule.UsefulClass()
 
 ## Spacing
 
-* Indent using 2 spaces rather than tabs to conserve space and help prevent line wrapping. Be sure to set this preference in Xcode as shown below:
-
-  ![Xcode indent settings](screens/indentation.png)
-
+* Indent using 4 spaces.
 * Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
 * Tip: You can re-indent by selecting some code (or ⌘A to select all) and then Control-I (or Editor\Structure\Re-Indent in the menu). Some of the Xcode template code will have 4-space tabs hard coded, so this is a good way to fix that.
 
@@ -308,7 +303,7 @@ func reticulateSplines(spline: [Double], adjustmentFactor: Double,
 
 ## Closure Expressions
 
-Use trailing closure syntax only if there's a single closure expression parameter at the end of the argument list. Give the closure parameters descriptive names.
+Use trailing closure syntax only if there's a single closure expression parameter at the end of the argument list. Give the closure parameters descriptive names. In some cases it is preferable to write a single closure expression as a parameter if it is is not obvious what it does from a context.
 
 **Preferred:**
 ```swift
@@ -541,21 +536,6 @@ let color = "red"
 ```swift
 let colour = "red"
 ```
-
-## Smiley Face
-
-Smiley faces are a very prominent style feature of the raywenderlich.com site! It is very important to have the correct smile signifying the immense amount of happiness and excitement for the coding topic. The closing square bracket `]` is used because it represents the largest smile able to be captured using ASCII art. A closing parenthesis `)` creates a half-hearted smile, and thus is not preferred.
-
-**Preferred:**
-```
-:]
-```
-
-**Not Preferred:**
-```
-:)
-```  
-
 
 ## Credits
 
