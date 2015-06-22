@@ -11,6 +11,7 @@ Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/
   * [Class Prefixes](#class-prefixes)
 * [Spacing](#spacing)
 * [Comments](#comments)
+  * [Documentation Comments](#documentation-comments)
 * [Classes and Structures](#classes-and-structures)
   * [Use of Self](#use-of-self)
   * [Protocol Conformance](#protocol-conformance)
@@ -150,6 +151,40 @@ When they are needed, use comments to explain **why** a particular piece of code
 
 Avoid block comments inline with code, as the code should be as self-documenting as possible. *Exception: This does not apply to those comments used to generate documentation.*
 
+### Documentation Comments
+
+Write [documentation comments](http://nshipster.com/swift-documentation/) for as many classes as possible. Classes that are used across a project it is preferred to write comments for all public elements in that class.
+
+In case of single-line comment it is preferred to use ```///``` for multi-line comment it is preferred to use ```/** ... */```.
+
+**Preferred:**
+
+```swift
+/// A temperature in Celsius degrees.
+var temperature: Double
+
+/**
+ Converts a temperature in Celsius degrees to Fahrenheit degrees.
+ :param: temperature A temperature in Celsius degrees.
+ :returns: A temperature in Fahrenheit degrees.
+*/
+func convertToFahrenheitDegrees(temperature: Double) -> Double
+```
+
+**Not Preferred:**
+
+```swift
+/**
+ A temperature in Celsius degrees.
+*/
+var temperature: Double
+
+
+/// Converts a temperature in Celsius degrees to Fahrenheit degrees.
+/// :param: temperature A temperature in Celsius degrees.
+/// :returns: A temperature in Fahrenheit degrees.
+func convertToFahrenheitDegrees(temperature: Double) -> Double
+```
 
 ## Classes and Structures
 
