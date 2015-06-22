@@ -9,6 +9,7 @@ Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/
 * [Naming](#naming)
   * [Prose](#prose)
   * [Class Prefixes](#class-prefixes)
+  * [Class Subclasses](#class-subclasses)
 * [Spacing](#spacing)
 * [Comments](#comments)
 * [Classes and Structures](#classes-and-structures)
@@ -115,6 +116,26 @@ import SomeModule
 let myClass = MyModule.UsefulClass()
 ```
 
+### Class Subclasses
+
+Subclasses of specific type such as buttons, cells, controllers and so on should contain this information in their name.
+
+**Preferred:**
+
+```swift
+class FancyViewController: UIViewController {}
+class FancyButton: UIButton {}
+class FancyTableViewCell: UITableViewCell {}
+class FancyCollectionViewCell: UICollectionViewCell {}
+```
+
+**Not Preferred:**
+
+```swift
+class FancyController: UIViewController {}
+class Fancy: UIButton {}
+class FancyCell: UITableViewCell {}
+```
 
 ## Spacing
 
