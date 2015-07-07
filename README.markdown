@@ -2,7 +2,7 @@
 
 Our overarching goals are conciseness, readability, and simplicity.
 
-Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/motain/objective-c-style-guide) too.
+Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/Onefootball/objective-c-style-guide) too.
 
 ## Table of Contents
 
