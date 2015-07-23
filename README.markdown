@@ -10,6 +10,7 @@ Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/
   * [Prose](#prose)
   * [Class Prefixes](#class-prefixes)
   * [Class Subclasses](#class-subclasses)
+  * [Methods](#methods)
 * [Spacing](#spacing)
 * [Comments](#comments)
   * [Documentation Comments](#documentation-comments)
@@ -205,6 +206,29 @@ var temperature: Double
 /// :param: temperature A temperature in Celsius degrees.
 /// :returns: A temperature in Fahrenheit degrees.
 func convertToFahrenheitDegrees(temperature: Double) -> Double
+```
+### Methods
+**Standard names:**
+```swift
+    // Should be called from Init methods to avoid code duplication.
+    func commonInit() {
+     // initializing code.
+    }
+    
+    // Should be called when data has changed and there is a need to update views.
+    func updateViews() {
+     // Update labels, reload table view...
+    }
+    
+    // Should be called when view should be updated with new data.
+    func configureWithTeam(team: Team) {
+     // Update labels, images...
+    }
+    
+    // Should be called when there is a need to load new data.
+    func loadData() {
+     // Fetch data from network or other source.
+    }
 ```
 
 ## Classes and Structures
