@@ -15,6 +15,7 @@ Writing Objective-C? Check out our [Objective-C Style Guide](https://github.com/
   * [Documentation Comments](#documentation-comments)
 * [Classes and Structures](#classes-and-structures)
   * [Use of Self](#use-of-self)
+  * [Final Classes](#final-classes)
   * [Protocol Conformance](#protocol-conformance)
   * [Computed Properties](#computed-properties)
 * [Function Declarations](#function-declarations)
@@ -41,7 +42,7 @@ Use descriptive names with camel case for classes, methods, variables, etc. Clas
 ```swift
 private let maximumWidgetCount = 100
 
-class WidgetContainer {
+final class WidgetContainer {
   var widgetButton: UIButton
   let widgetHeightPercentage = 0.85
 }
@@ -74,22 +75,22 @@ timedAction(delay: 1.0, perform: someOtherAction)
 For methods, follow the standard Apple convention of referring to the first parameter in the method name:
 
 ```swift
-class Guideline {
-  func combineWithString(incoming: String, options: Dictionary?) { ... }
-  func upvoteBy(amount: Int) { ... }
+final class Guideline {
+  func combine(with incomingString: String, options: [String: Any]) {...}
+  func upvote(by amount: Int) { ... }
 }
 ```
 
 ### Enumerations
 
-Use UpperCamelCase for enumeration values:
+Use lowerCamelCase for enumeration values:
 
 ```swift
 enum Shape {
-  case Rectangle
-  case Square
-  case Triangle
-  case Circle
+  case rectangle
+  case square
+  case triangle
+  case circle
 }
 ```
 
@@ -97,7 +98,7 @@ enum Shape {
 
 When referring to functions in prose (tutorials, books, comments) include the required parameter names from the caller's perspective or `_` for unnamed parameters.
 
-> Call `convertPointAt(column:row:)` from your own `init` implementation.
+> Call `convertPoint(atColumn:row:)` from your own `init` implementation.
 >
 > If you call `timedAction(_:)` from `viewDidLoad()` remember to provide an adjusted delay value.
 >
@@ -109,7 +110,7 @@ When in doubt, look at how Xcode lists the method in the jump bar – our style
 
 ### Class Prefixes
 
-Swift types are automatically namespaced by the module that contains them and you should not add a class prefix. If two names from different modules collide you can disambiguate by prefixing the type name with the module name.
+Swift types are automatically name-spaced by the module that contains them and you should not add a class prefix. If two names from different modules collide you can disambiguate by prefixing the type name with the module name.
 
 ```swift
 import SomeModule
@@ -176,7 +177,7 @@ Avoid block comments inline with code, as the code should be as self-documenting
 
 Write [documentation comments](http://nshipster.com/swift-documentation/) for as many classes as possible. Classes that are used across a project it is preferred to write comments for all public elements in that class.
 
-In case of single-line comment it is preferred to use ```///``` for multi-line comment it is preferred to use ```/** ... */```.
+Prefer to use ```///``` instead of multi-line comments.
 
 **Preferred:**
 
@@ -184,11 +185,9 @@ In case of single-line comment it is preferred to use ```///``` for multi-line c
 /// A temperature in Celsius degrees.
 var temperature: Double
 
-/**
- Converts a temperature in Celsius degrees to Fahrenheit degrees.
- :param: temperature A temperature in Celsius degrees.
- :returns: A temperature in Fahrenheit degrees.
-*/
+/// Converts a temperature in Celsius degrees to Fahrenheit degrees.
+/// - Parameter temperature: A temperature in Celsius degrees.
+/// - Returns: A temperature in Fahrenheit degrees.
 func convertToFahrenheitDegrees(temperature: Double) -> Double
 ```
 
@@ -201,9 +200,11 @@ func convertToFahrenheitDegrees(temperature: Double) -> Double
 var temperature: Double
 
 
-/// Converts a temperature in Celsius degrees to Fahrenheit degrees.
-/// :param: temperature A temperature in Celsius degrees.
-/// :returns: A temperature in Fahrenheit degrees.
+/**
+ Converts a temperature in Celsius degrees to Fahrenheit degrees.
+ :param: temperature A temperature in Celsius degrees.
+ :returns: A temperature in Fahrenheit degrees.
+*/
 func convertToFahrenheitDegrees(temperature: Double) -> Double
 ```
 
@@ -215,7 +216,9 @@ Remember, structs have [value semantics](https://developer.apple.com/library/mac
 
 Classes have [reference semantics](https://developer.apple.com/library/mac/documentation/Swift/Conceptual/Swift_Programming_Language/ClassesAndStructures.html#//apple_ref/doc/uid/TP40014097-CH13-XID_145). Use classes for things that do have an identity or a specific life cycle. You would model a person as a class because two person objects are two different things. Just because two people have the same name and birthdate, doesn't mean they are the same person. But the person's birthdate would be a struct because a date of 3 March 1950 is the same as any other date object for 3 March 1950. The date itself doesn't have an identity.
 
-Sometimes, things should be structs but need to conform to `AnyObject` or are historically modeled as classes already (`NSDate`, `NSSet`). Try to follow these guidelines as closely as possible.
+Sometimes, things should be structs but need to subclass `NSObject` or are historically modeled as classes already (`NSDate`, `NSSet`). Try to follow these guidelines as closely as possible.
+
+Each property should be defined on single line.
 
 ### Example definition
 
@@ -223,7 +226,8 @@ Here's an example of a well-styled class definition:
 
 ```swift
 class Circle: Shape {
-  var x: Int, y: Int
+  var x: Int 
+  var y: Int
   var radius: Double
   var diameter: Double {
     get {
@@ -264,6 +268,7 @@ The example above demonstrates the following style guidelines:
  + Define multiple variables and structures on a single line if they share a common purpose / context.
  + Indent getter and setter definitions and property observers.
  + Don't add modifiers such as `internal` when they're already the default. Similarly, don't repeat the access modifier when overriding a method.
+ + Every property is defined on it's own line; for example `x` and `y`don't share the line.
 
 
 ### Use of Self
@@ -273,7 +278,7 @@ For conciseness, avoid using `self` since Swift does not require it to access an
 Use `self` when required to differentiate between property names and arguments in initializers, and when referencing properties in closure expressions (as required by the compiler):
 
 ```swift
-class BoardLocation {
+final class BoardLocation {
   let row: Int, column: Int
 
   init(row: Int, column: Int) {
@@ -286,6 +291,17 @@ class BoardLocation {
   }
 }
 ```
+
+### Final Classes
+
+When creating a new class, opt to define it as `final` if it's not immediately subclassed or specifically designed to be subclassed later on. This reduces the risks of unintended side effects caused by careless subclassing for convenience reasons.
+
+```swift
+final class Player {
+  ...
+}
+```
+
 
 ### Protocol Conformance
 
@@ -342,17 +358,19 @@ var diameter: Double {
 Keep short function declarations on one line including the opening brace:
 
 ```swift
-func reticulateSplines(spline: [Double]) -> Bool {
+func reticulate(splines: [Double]) -> Bool {
   // reticulate code goes here
 }
 ```
 
-For functions with long signatures, add line breaks at appropriate points and add an extra indent on subsequent lines:
+For functions with long signatures (more than 120c), add line breaks at the parameter-level and add an extra indent on subsequent lines:
 
 ```swift
-func reticulateSplines(spline: [Double], adjustmentFactor: Double,
-    translateConstant: Int, comment: String) -> Bool {
-  // reticulate code goes here
+func reticulate(splines: [Double],
+                adjustmentFactor: Double,
+                translateConstant: Int,
+                comment: String) -> Bool {
+    // reticulate code goes here
 }
 ```
 
@@ -406,8 +424,8 @@ Always use Swift's native types when available. Swift offers bridging to Objecti
 
 **Preferred:**
 ```swift
-let width = 120.0                                    // Double
-let widthString = (width as NSNumber).stringValue    // String
+let width = 120.0                                     // Double
+let widthString = String(width)                       // String
 ```
 
 **Not Preferred:**
@@ -581,7 +599,7 @@ let swift = "not a scripting language";
 
 ## Access Control
 
-Always use `private` for properties and methods unless they need to be accessed from other places. In case it is accessed from Objective-C use `dynamic`.
+Always use `private` for properties and methods unless they need to be accessed from other places. In case it is accessed from Objective-C use `@objc`.
 
 **Example:**
 ```swift
